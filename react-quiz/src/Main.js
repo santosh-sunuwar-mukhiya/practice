@@ -1,9 +1,18 @@
-import React from 'react'
+import { useEffect } from "react";
+// import axios from "axios";
 
-const Main = ({children}) => {
-  return (
-      <div>{children}</div>
-  )
-}
+const API = process.env.REACT_APP_API_URL;
 
-export default Main
+const Main = ({ children }) => {
+  useEffect(function () {
+    // const res = axios.get(`${API}`);
+
+    fetch(API)
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
+  }, []);
+  return <div>{children}</div>;
+};
+
+export default Main;
