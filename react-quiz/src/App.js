@@ -1,8 +1,9 @@
+import {useReducer, useEffect} from "react"
 import Header from "./Header"
 import Main from "./Main"
 import Loader from "./Loader"
 import Error from "./Error";
-import {useReducer, useEffect} from "react"
+import StartScreen from "./StartScreen";
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -63,6 +64,9 @@ export default function App() {
         {
           status === "error" && <Error />
         }
+          {
+              status === "ready" && <StartScreen />
+          }
       </Main>
     </div>
   );
