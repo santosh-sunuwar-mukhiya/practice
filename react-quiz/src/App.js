@@ -4,6 +4,7 @@ import Main from "./Main"
 import Loader from "./Loader"
 import Error from "./Error";
 import StartScreen from "./StartScreen";
+import Question from "./Question";
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -16,7 +17,7 @@ const initialState = {
 
 function reducer(state, action) {
   switch (action.type) {
-    case "dataRecived":
+    case "dataReceived":
       return {
         ...state,
         questions: action.payload,
@@ -29,13 +30,21 @@ function reducer(state, action) {
         status: "error",
       };
 
+      case "start":
+          return {
+              ...state,
+              status: "active"
+          };
+
     default:
       throw new Error("Unknown Action.");
   }
 }
 
 export default function App() {
-  const [{question, status}, dispatch] = useReducer(reducer, initialState);
+  const [{questions, status}, dispatch] = useReducer(reducer, initialState);
+
+  const numQuestions = questions.length;
 
   useEffect(function () {
     // const res = axios.get(`${API}`);
@@ -44,7 +53,7 @@ export default function App() {
       .then((res) => res.json())
       .then((data) =>
         dispatch({
-          type: "dataRecived",
+          type: "dataReceived",
           payload: data,
         }),
       )
@@ -65,7 +74,10 @@ export default function App() {
           status === "error" && <Error />
         }
           {
-              status === "ready" && <StartScreen />
+              status === "ready" && <StartScreen  numQuestions={ numQuestions} dispatch={dispatch} />
+          }
+          {
+              status === "active" && <Question />
           }
       </Main>
     </div>
