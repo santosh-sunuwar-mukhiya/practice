@@ -7,6 +7,7 @@ import StartScreen from "./StartScreen";
 import Question from "./Question";
 import NextButton from "./NextButton";
 import Progress from "./Progress";
+import FinishScreen from "./FinishScreen";
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -18,6 +19,7 @@ const initialState = {
     index:0,
     answer: null,
     points: 0,
+    highscore: 0,
 };
 
 function reducer(state, action) {
@@ -56,13 +58,26 @@ function reducer(state, action) {
             answer: null,
         };
 
+      case "finished":
+          return {
+              ...state,
+              status: "finished",
+              highscore: state.points > state.highscore ? state.points : state.highscore,
+          };
+      case "restart":
+          return {
+              ...initialState,
+              status: "ready",
+              questions: state.questions,
+          };
+
     default:
       throw new Error("Unknown Action.");
   }
 }
 
 export default function App() {
-  const [{questions, status, index, answer, points}, dispatch] = useReducer(reducer, initialState);
+  const [{questions, status, index, answer, points, highscore}, dispatch] = useReducer(reducer, initialState);
 
   const numQuestions = questions.length;
   const totalPoints = questions.reduce((prev, curr)=>(prev + curr.points), 0)
@@ -103,10 +118,11 @@ export default function App() {
                   <>
                       <Progress index={index} numQuestions={numQuestions} points={points} totalPoints={totalPoints} answer={answer} />
                       <Question question={questions[index]} dispatch={dispatch} answer={answer} />
-                      <NextButton dispatch={dispatch} answer={answer} />
+                      <NextButton dispatch={dispatch} answer={answer} index={index} numQuestions={numQuestions} />
                   </>
               )
           }
+          {status === "finished" && <FinishScreen points={points} totalPoints={totalPoints} highscore={highscore} dispatch={dispatch}/>}
       </Main>
     </div>
   );
