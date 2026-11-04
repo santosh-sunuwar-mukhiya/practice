@@ -2,12 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './components/index.css';
 import App from './components/App';
+import {QuizProvider} from './contexts/QuizProvider.js';
 import reportWebVitals from './components/reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <App />
+        <QuizProvider>
+            <App />
+        </QuizProvider>
     </React.StrictMode>
 );
 
