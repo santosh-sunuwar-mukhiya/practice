@@ -6,9 +6,9 @@ function mergeSort(numbers) {
     }
 
     let mid = Math.floor(numbers.length / 2);
-    let leftHand = mergeSort(numbers.slice(0, mid));
-    let rightHand = mergeSort(numbers.slice(mid));
-    return merge(leftHand, rightHand);
+    let leftHand = mergeSort(numbers.slice(0, mid)); // how does it keep calling itself until it becomes length of 1. How many times does it run?
+    let rightHand = mergeSort(numbers.slice(mid)); // how does it keep calling itself until it becomes length of 1. How many times does it run?
+    return merge(leftHand, rightHand); // how does it keep calling itself. how many times does it run?
 }
 
 function merge(leftHand, rightHand) {
@@ -36,4 +36,4 @@ function merge(leftHand, rightHand) {
     return result;
 }
 
-console.log(mergeSort([8, 6, 7, 5, 1, 2, 3, 4]));
+console.log(mergeSort([80, 6, 7, 50, 1, 2, 3, 400]));
