@@ -12,3 +12,6 @@ function linearSearch(numbers, target){
 
 console.log(linearSearch([1, 2, 3, 4, 5], 4));
 console.log(linearSearch([1, 2, 3, 4, 5], 14));
+
+// Time Complexity: O(n)
+// Space Complexity: O(1)

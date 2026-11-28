@@ -37,3 +37,7 @@ function merge(leftHand, rightHand) {
 }
 
 console.log(mergeSort([80, 6, 7, 50, 1, 2, 3, 400]));
+
+// Time Complexity: O(n log n)
+// Space Complexity: O(n)
+// formula: 2n - 1. where n =  length of array.
